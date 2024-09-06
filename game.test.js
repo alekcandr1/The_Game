@@ -2,6 +2,13 @@ import {Game} from './game.js'
 import expect from "expect";
 
 describe('game tests', () => {
+    let game;
+    beforeEach(() => {
+        game = new Game
+    });
+    afterEach(() => {
+        game.stop()
+    });
     it('init game', () => {
         const game = new Game()
 
@@ -65,4 +72,33 @@ describe('game tests', () => {
             .toBe(true)
 
     })
+
+    it('should google change position', async () => {
+        for (let i = 0; i < 10; i++) {
+            const game = new Game
+            game.settings = {
+                gridSize: {
+                    columns: 2,
+                    rows: 3
+                },
+                googleJumpInterval: 100,
+            }
+
+            await game.start()
+
+            // google position
+            const prevGooglePositions = game.google.position.copy()
+
+            //waiting
+            await sleep(150)
+
+            //compare positions
+            expect(game.google.position.equal(prevGooglePositions)).toBe(false)
+            game.stop()
+        }
+    })
+
+    const sleep = (delay) => {
+        return new Promise(resolve => setTimeout(resolve, delay))
+    }
 })
