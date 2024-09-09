@@ -181,6 +181,13 @@ export class Game {
     get google() {
         return this.#google
     }
+    set score(score) {
+        this.#score = score
+    }
+
+    get score() {
+        return this.#score
+    }
 }
 
 class NumberUtil {
